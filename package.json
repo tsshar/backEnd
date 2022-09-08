@@ -4,12 +4,29 @@
   "description": "BizRocket - Your Business Maker",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "server" : "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.1",
     "mongoose": "^6.5.4"
-  }
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  },
+
+  
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tsshar/backEnd.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/tsshar/backEnd/issues"
+  },
+  "homepage": "https://github.com/tsshar/backEnd#readme"
 }
+
