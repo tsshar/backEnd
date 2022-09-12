@@ -3,6 +3,8 @@ const router = express.Router();
 const User = require('../models/User');
 const { body, validationResult } = require('express-validator');
 
+var bcrypt = require('bcryptjs'); //importing bcryptjs for hashcoding
+
 
 
 
@@ -33,12 +35,17 @@ body('password', 'password must be of length 5 or greater').isLength({ min: 5 })
     let user = await User.findOne({email: req.body.email});
       if(user){
         return res.status(400).json({error: "Use with this email already exists"})
-      }
+    }
+
+    // Store hash in your password DB.
+     const salt = await bcrypt.genSaltSync(10);                        //bcrypt generate a salt and store automatically
+     const secPass = await bcrypt.hashSync(req.body.password, salt);  //genearate hashcode by combining password and salt (https://www.npmjs.com/package/bcryptjs)
+
 
       user = await User.create({
         name: req.body.name,
         email: req.body.email,
-        password: req.body.password,
+        password: secPass,
       })
       
     //   .then(user => res.json(user))
@@ -50,7 +57,7 @@ body('password', 'password must be of length 5 or greater').isLength({ min: 5 })
 
 } catch (error) {
     console.error(error.message);
-        
+    res.status(500).send("Some error occered");
 }
 })
 
